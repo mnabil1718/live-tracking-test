@@ -83,9 +83,7 @@ describe('/users endpoint (e2e)', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.status).toBe('fail');
-      expect(response.body.message).toBe(
-        'tidak dapat membuat user baru karena tipe data tidak sesuai',
-      );
+      expect(response.body.message).toEqual(['fullname must be a string']);
     });
 
     it('should respond 400 when username more than 50 characters', async () => {

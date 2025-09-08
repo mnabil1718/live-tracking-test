@@ -7,6 +7,7 @@ import { PASSWORD_HASH } from 'src/Applications/security/PasswordHash';
 import BcryptPasswordHash from 'src/Infrastructures/security/BcryptPasswordHash';
 import { PrismaService } from 'src/Infrastructures/database/prisma/prisma.service';
 import { nanoid } from 'nanoid';
+import bcrypt from 'bcrypt';
 import { PrismaModule } from 'src/Infrastructures/database/prisma/prisma.module';
 
 @Module({
@@ -22,7 +23,12 @@ import { PrismaModule } from 'src/Infrastructures/database/prisma/prisma.module'
       },
       inject: [PrismaService],
     },
-    { provide: PASSWORD_HASH, useClass: BcryptPasswordHash },
+    {
+      provide: PASSWORD_HASH,
+      useFactory: () => {
+        return new BcryptPasswordHash(bcrypt);
+      },
+    },
   ],
 })
 export class UserModule {}

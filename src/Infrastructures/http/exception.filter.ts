@@ -17,8 +17,6 @@ export class CatchEverythingFilter implements ExceptionFilter {
     const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
 
-    console.log('!!!ERROR!!!!', exception);
-
     // 1. Domain + Client Errors
     if (exception instanceof Error) {
       const translatedError = DomainErrorTranslator.translate(exception);
